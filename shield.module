@@ -15,7 +15,7 @@ function shield_perm() {
  * Implementation of hook_menu().
  */
 function shield_menu() {
-  
+
   $items['admin/settings/shield'] = array(
     'title' => 'Shield settings',
     'page callback' => 'drupal_get_form',
@@ -37,7 +37,7 @@ function shield_admin_settings() {
     '#title' => t('Description'),
     '#value' => t('Set up credentials for an authenticated user. You can also decide whether you want to print out the credentials or not.'),
   );
-  
+
   $form['shield_user'] = array(
     '#type' => 'textfield',
     '#title' => t("The authenticated user's name"),
@@ -69,12 +69,12 @@ function shield_boot() {
   }
   $pass = variable_get('shield_pass', '');
 
-  if (!empty($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']) 
-      && $_SERVER['PHP_AUTH_USER'] == $user 
+  if (!empty($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])
+      && $_SERVER['PHP_AUTH_USER'] == $user
       && $_SERVER['PHP_AUTH_PW']   == $pass) {
     return;
   }
-  
+
   $print = variable_get('shield_print', 'Hello, user: [user], pass: [pass]!');
   header(sprintf('WWW-Authenticate: Basic realm="%s"', strtr($print, array('[user]' => $user, '[pass]' => $pass))));
   header('HTTP/1.0 401 Unauthorized');
