@@ -41,16 +41,6 @@ function shield_admin_settings() {
   $form['general'] = array(
     '#type' => 'fieldset',
     '#title' => t('General settings'),
-   );
-
-  $form['general']['shield_state'] = array(
-    '#type' => 'radios',
-    '#title' => t("Turn the shield on/off"),
-    '#default_value' => variable_get('shield_state', 1),
-    '#options' => array(
-      '0' => t('Turn off'),
-      '1' => t('Turn on'),
-     )
   );
 
   $form['general']['shield_allow_cli'] = array(
@@ -91,21 +81,17 @@ function shield_admin_settings() {
  * Implementation of hook_boot().
  */
 function shield_boot() {
-  if (variable_get('shield_state', 1) == 0) {
-    return;
-  }
-
   $user = variable_get('shield_user', '');
   if (!$user) {
     return;
   }
-  $pass = variable_get('shield_pass', '');
 
   // allow Drush to bypass Shield
   if (php_sapi_name() == 'cli' && variable_get('shield_allow_cli', 1) == 1) {
     return;
   }
 
+  $pass = variable_get('shield_pass', '');
   if (!empty($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])
       && $_SERVER['PHP_AUTH_USER'] == $user
       && $_SERVER['PHP_AUTH_PW']   == $pass) {
