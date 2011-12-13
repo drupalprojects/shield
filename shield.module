@@ -17,10 +17,9 @@ function shield_perm() {
 function shield_menu() {
 
   $items['admin/settings/shield'] = array(
-    'title' => 'Shield settings',
+    'title' => 'Shield',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('shield_admin_settings'),
-    'type' => MENU_LOCAL_TASK,
     'weight' => 10,
     'access arguments' => array('administer shield'),
   );
