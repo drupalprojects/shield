@@ -92,6 +92,11 @@ function shield_boot() {
   }
 
   $pass = variable_get('shield_pass', '');
+  // handling CGI PHP calls, where there is no PHP_AUTH_USER and PHP_AUTH_PW
+  // http://www.besthostratings.com/articles/http-auth-php-cgi.html
+  if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+    list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':' , base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
+  }
   if (!empty($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])
       && $_SERVER['PHP_AUTH_USER'] == $user
       && $_SERVER['PHP_AUTH_PW']   == $pass) {
