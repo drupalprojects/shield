@@ -1,0 +1,4 @@
+shield_allow_cli: 1
+shield_user: ''
+shield_pass: ''
+shield_print: 'Hello, user: [user], pass: [pass]!'
