@@ -1,4 +1,4 @@
-shield_settings:
+shield.settings:
  path: '/admin/config/system/shield'
  defaults:
    _title: 'Shield'

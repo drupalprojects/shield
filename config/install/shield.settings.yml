@@ -1,4 +1,5 @@
-shield_allow_cli: 1
-shield_user: ''
-shield_pass: ''
-shield_print: 'Hello, user: [user], pass: [pass]!'
+user: ''
+pass: ''
+# For real security, remove [user] and [pass].
+print: 'Hello, user: [user], pass: [pass]!'
+allow_cli: 1

@@ -1,5 +1,8 @@
 services:
-  shield.shield_subscriber:
-    class: Drupal\shield\shieldSubscriber
+  shield.middleware:
+    class: Drupal\shield\ShieldMiddleware
+    arguments: ['@config.factory']
     tags:
-      - { name: 'event_subscriber' }
+      # Ensure to come before page caching, so you don't serve cached pages to
+      # banned users.
+      - { name: http_middleware, priority: 250 }
