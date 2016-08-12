@@ -49,15 +49,17 @@ class ShieldMiddleware implements HttpKernelInterface {
    */
   public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
     $config = $this->configFactory->get('shield.settings');
+    $allow_cli = $config->get('allow_cli');
     $user = $config->get('user');
     $pass = $config->get('pass');
 
-    if (
-      // No username, nothing to do.
-      $user &&
-      // CLI bypass.
-      !(PHP_SAPI === 'cli' && $config->get('allow_cli'))
-    ) {
+    if (empty($user) || (PHP_SAPI === 'cli' && $allow_cli)) {
+      // If username is empty, then authentication is disabled,
+      // or if request is coming from a cli and it is allowed,
+      // then proceed with response without shield authentication.
+      return $this->httpKernel->handle($request, $type, $catch);
+    }
+    else {
       if ($request->server->has('PHP_AUTH_USER') && $request->server->has('PHP_AUTH_PW')) {
         $input_user = $request->server->get('PHP_AUTH_USER');
         $input_pass = $request->server->get('PHP_AUTH_PW');
