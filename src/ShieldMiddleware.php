@@ -61,10 +61,10 @@ class ShieldMiddleware implements HttpKernelInterface {
         $input_user = $request->server->get('PHP_AUTH_USER');
         $input_pass = $request->server->get('PHP_AUTH_PW');
       }
-      elseif ($request->server->has('HTTP_AUTHORIZATION')) {
+      elseif (!empty($request->server->get('HTTP_AUTHORIZATION'))) {
         list($input_user, $input_pass) = explode(':', base64_decode(substr($request->server->get('HTTP_AUTHORIZATION'), 6)), 2);
       }
-      elseif ($request->server->has('REDIRECT_HTTP_AUTHORIZATION')) {
+      elseif (!empty($request->server->get('REDIRECT_HTTP_AUTHORIZATION'))) {
         list($input_user, $input_pass) = explode(':', base64_decode(substr($request->server->get('REDIRECT_HTTP_AUTHORIZATION'), 6)), 2);
       }
 
