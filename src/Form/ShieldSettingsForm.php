@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- *   Contains \Drupal\shield\Form\ShieldSettingsForm.
- */
 
 namespace Drupal\shield\Form;
 
