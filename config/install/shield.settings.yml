@@ -8,6 +8,5 @@ credentials:
     pass_key: ''
   multikey:
     user_pass_key: ''
-# For real security, remove [user] and [pass].
-print: 'Hello, user: [user], pass: [pass]!'
+print: 'Hello!'
 allow_cli: true
